@@ -1,0 +1,357 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{mathpazo} % Palatino font
+
+\usepackage{epsfig}
+%\usepackage{psfig}
+%\usepackage{epsfig}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+%\usepackage{citesort}
+\usepackage{indentfirst}
+\usepackage{ascii}
+\usepackage[update,prepend]{epstopdf}
+\usepackage{MnSymbol,wasysym}
+\usepackage[shortlabels]{enumitem}
+
+
+\begin{document}
+
+	
+	%----------------------------------------------------------------------------------------
+	%	TITLE PAGE
+	%----------------------------------------------------------------------------------------
+	
+	\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+		
+		\center % Centre everything on the page
+		
+		%------------------------------------------------
+		%	Headings
+		%------------------------------------------------
+		
+		\textsc{\LARGE Instituto Tecnológico y de Estudios Superiores de Monterrey}\\[1.5cm] % Main heading such as the name of your university/college
+		
+		\textsc{\Large Maths for Computer Sciencei}\\[0.5cm] % Major heading such as course name
+		
+		\textsc{\large Summer 2019}\\[0.5cm] % Minor heading such as course title
+		
+		%------------------------------------------------
+		%	Title
+		%------------------------------------------------
+		
+		\HRule\\[0.4cm]
+		
+		{\huge\bfseries An Unnecessarily Convoluted Academic Title}\\[0.4cm] % Title of your document
+		
+		\HRule\\[1.5cm]
+		
+		%------------------------------------------------
+		%	Author(s)
+		%------------------------------------------------
+		
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft}
+				\large
+				\textit{Authors}\\
+				Joaquín. \textsc{Ríos C.}\\
+				Jordan. \textsc{González B.}\\
+				Roberto. \textsc{Téllez P.} % Your name
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\large
+				\textit{Professor}\\
+				PhD. Salvador E. \textsc{Venegas-Andraca} % Supervisor's name
+			\end{flushright}
+		\end{minipage}
+		
+		% If you don't want a supervisor, uncomment the two lines below and comment the code above
+		%{\large\textit{Author}}\\
+		%John \textsc{Smith} % Your name
+		
+		%------------------------------------------------
+		%	Date
+		%------------------------------------------------
+		
+		\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+		
+		{\large\today} % Date, change the \today to a set date if you want to be precise
+		
+		%------------------------------------------------
+		%	Logo
+		%------------------------------------------------
+		
+		%\vfill\vfill
+		%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+		
+		%----------------------------------------------------------------------------------------
+		
+		\vfill % Push the date up 1/4 of the remaining page
+		
+	\end{titlepage}
+	
+	%----------------------------------------------------------------------------------------
+	
+%\end{document}
+
+% ----------------------------------------------------------------------------------------------
+
+%\title{A Very Simple \LaTeX{} Template}
+%\author{
+%        Roberto Tellez Perezyera \\
+%                Some CS engineering student\\
+%        Tec de Monterrey, Campus Estado de Mexico\\
+%        \underline{Mexico}
+%            \and
+%        And no one eles for now this is my part of the work okay? okay.\\
+%}
+%\date{\today}
+
+%\documentclass[12pt]{article}
+
+%\begin{document}
+%\maketitle
+
+\section{Introduction}
+In the following pages, we shall explore and discuss the foundations, characteristics, and practicalities of the RSA (Rivest-Shamir-Adleman) cryptosystem, one of the first, and to date, a very popular public key cryptosystem, used for secure data transmission. \\ \\
+It is the preferred method when two parties that “have not met before” have to securely exchange information, hence its popularity, i.e., an example of the previous scenario is a customer shopping online.\\ \\
+We shall describe the mathematical foundations of RSA in order to lay critical background for further and correct understanding on how this cryptosystem works. We shall then address vulnerabilities of RSA, later, a succinct description of the claims of the patent US 4405829, which implies all the invention description of the RSA. This section will be followed by real world applications of RSA. \\
+An implementation of RSA in Python 3 shall also be developed as part of the scope of this project.
+
+\section{Mathematical foundations of RSA}\label{mathematical foundations of RSA}
+Let us start by recalling what an asymmetric cryptosystem is. While symmetric encryption methods rely on a private key only, asymmetric methods use both a public key and a private key for the data encryption and decryption processes. \\ \\
+RSA takes advantage of the difficulty of factoring the product of two prime numbers, i.e., the factoring problem. \\ 
+The RSA algorithm can be broken down into four basic steps: key generation, key distribution, encryption, and decryption.
+Two key facts and one conjecture are presented by Kaliski give us an idea of what the problem and strength of RSA encryption are about, and reinforce our previous assertion on the factoring problem:
+
+
+
+\section{US 4405829 Patent Claims}\label{Claims}
+As communications were improving, the need for security was imperative. Therefore, Cryptographic Communications System was created, this, to keep transferring data without exposing its content, because it must pass over communications channels which may be monitored by electronic eavesdroppers.\\\\
+\indent Let us describe what the patent claims:
+\begin{enumerate}
+	\setcounter{enumi}{0}
+\item
+A cryptographic communications system comprising:
+	\begin{enumerate}
+		\item
+		a communications channel,
+		\item
+		encoding means coupled to said channel and adapted for transforming a transmit message word signal $M$ to a ciphertext word signal $C$ and for transmitting $C$ on said channel, where $M$ corresponds to a number representative of the message and
+		\begin{gather*}
+			0 \leq M \leq n-1,
+		\end{gather*}		
+		
+		where $n$ is a composite number of the form $n = p \cdot q$, where $p$ and $q$ are prime numbers, and where $C$ corresponds to a number of representative of an enciphered form of said message and corresponds to $C \equiv M^e mod (n)$, where $e$ is a number relatively prime to
+		\begin{gather*}
+			1 cm(p-1, q-1)
+		\end{gather*}	
+		and,
+		
+		\item
+		a decoding means coupled to said channel and adapted for receiving $C$ from said channel and for transforming $C$ to a receive message word signal $M'$ where $M'$ corresponds to a number representative of a deciphered form of $C$ and corresponds to $M\equiv C^d mod(n)$, where $d$ is a multiplicative inverse of
+		\begin{gather*}
+			e(mod(1cm(p-1, q-1))).
+		\end{gather*}		
+	\end{enumerate}
+
+\item
+A system according to claim 1 wherein at least one of said transforming means comprises:
+	\begin{enumerate}
+		\item
+			a first register means for receiving and storing a first digital signal representative of said signal-to-be-transformed,
+		\item
+		a second register means for receiving and storing a second digital signal representative of the exponent of the equivalence relation defining said transformation,
+		\item
+		a third register means for receiving and storing a third digital signal representative of the modulus of the equivalent relation defining said transformation, and
+		\item
+		an exponentiation by repeated squaring and multiplication network coupled to said first, second and third register means, said network including:
+			\begin{enumerate}
+				\item
+				an output register means for receiving and storing a first multiplier signal and for applying said first multiplier signal to a first multiplier input line,
+				\item
+				selector means for successively selecting each of the bits of said second digital signal as a multiplier selector signal,
+				\item
+				means operative for each of said multiplier selector signals for selecting as a second multiplier signal either the contents of said output register means or the contents of said first register means, and for said second applying multiplier signal to a second multiplier input line, said selection being dependent on the binary value of the successive bits of said second digital signal, and
+				\item
+				modulo multiplier means operative in step with said selector means and responsive to said first and second multiplier signals on said first and second multiplier input lines for successively generating first multiplier signals and for transferring said first multiplier signals to said output register means, said first multiplier signal initially being representative of binary 1, and thereafter being representative of the modulo product of said first and second multiplier signals, where the modulus of said modulo product corresponds to said third digital signal.
+				
+			\end{enumerate}
+	\end{enumerate}
+	
+	\item
+	A communications system for transferring message signals $M_i$, comprising $k$ terminals, wherein each terminal is characterized by an encoding key $E_i = (e_i, n_i)$ and decoding key $D_i = (e_i, n_i)$, where $i = 1, 2, \ldots k$, and wherein $M_i$ corrresponds to a number representative of a message signal to be transmitted from the $i^th$ terminal, and 
+		\begin{gather*}
+			0 \leq M_i \leq n_i-1,
+		\end{gather*}	
+	$n_i$ is a composite number of the form
+		\begin{gather*}
+			n_i = p_i \cdot q_i
+		\end{gather*}	
+	$p_i$ and $q_i$ are prime numbers, \\
+	$e_i$ is relatively prime to $1cm(p-1, q-1)$, \\
+	$d_i$ is a multiplicative inverse of 
+		\begin{gather*}
+			e_i(mod(1cm(p_i-1, q_i-1))).
+		\end{gather*}	
+		wherein a first terminal includes means for encoding a digital message word signal $M_a$ for transmission from said first terminal $(i=A)$ to a second terminal $(i=B)$, said first terminal including:
+		\begin{enumerate}
+			\item	
+			means for transforming said message word signal $M_A$ to a signed message word signal $M_As$, $M_As$ corresponding to a number representative of an encoded form of said message word signal $M_A$, whereby:
+			\begin{gather*}
+				M_As \equiv {M_A}^{dA} (mod \; n_A).
+			\end{gather*}	
+		\end{enumerate}
+		
+	\item
+	A system according to claim 3 wherein at least one of said transforming means comprised by those stated in claim 2.
+	\item
+	The system of claim 3 further comprising:
+	\begin{enumerate}
+		\item
+		means for transmitting said signal message word signal $M_As$ from said first terminal to said second terminal, and
+		\item
+		wherein said second terminal includes means for decoding said signed message word signal $M_As$ to said message word signal $M_A$, said second terminal including:
+			\begin{enumerate}
+				\item
+				means for transforming said ciphertext word signal $C_A$ to said message word signal $M_A$, whereby			
+				\begin{gather*}
+				M_A \equiv {M_As}^{eA} (mod \; n_A).
+				\end{gather*}	
+			\end{enumerate}	
+	\end{enumerate}
+	
+	\item
+	The system of claim 3 wherein said encoding means further comprises:
+		\begin{enumerate}
+			\item
+			means for transforming said signed message word signal $M_{As}$ to one or more signed message block word signals ${M_{As}}"$, each block word signal ${M_{As}}"$ corresponding to a number representative of a portion of said signed message word signal MA in the range $0 \leqq M_{As} \leqq n_B-1$, and
+			\item
+			means for transforming each of said signed message block word signals ${M_{As}}"$ to a signed ciphertext word signal $C_{As}$, $C_{As}$ corresponding to a number representative of an encoded form of said signed message block word signal, whereby
+			\begin{gather*}
+				C_{As}  \equiv M_{As}"^{eB} (mod n_B).
+			\end{gather*}	
+		\end{enumerate}
+		
+		\item
+		The system of claim 6 comprising the further steps of the claim 5, but said second terminal including:
+		\begin{enumerate}
+			\item	
+		means for transforming each of said signed ciphertext word signal $C_{As}$ to one of said signed message block word signals${M_{As}}"$ , whereby
+			\begin{gather*}
+				M_{As}"  \equiv {C_{As}}^{dB} (mod \; n_B).
+			\end{gather*}
+			\item
+means for transforming said signed message block word signals to said signed message word signal $M_{As}$
+			\item
+means for transforming said signed message word signal to said message word signal $M_A$, whereby
+			\begin{gather*}
+				M_A  \equiv {M_{As}}^{eA} (mod \; n_A).
+			\end{gather*}
+		\end{enumerate}
+	
+	\item
+	The system of claim 3 comprising:
+		\begin{enumerate}
+			\item
+			message block word signals $M_A'$, each block word signal MA being a number representative of a portion of said message word signal $M_A$ in the range $0 \leqq M_A \leqq n_B - 1$ , means for transforming each of said message block word signals $M_A$" to a ciphertext word signal $C_A$, $C_A$ corresponding to a number representative of an encoded form of said message block word signal $M_A$", whereby:
+			\begin{gather*}
+				C_A  \equiv {M_{A}"}^{eB} (mod \; n_B).
+			\end{gather*}
+		\end{enumerate}
+
+\item 
+A system according to claim 8 wherein at least one of said transforming means comprising those in the claim 4.
+
+\item 
+The system of claim 8 further comprising the configurations of the system in claim 7.
+
+\item 
+The system of claim 8 wherein said encoding means further comprises:
+	\begin{enumerate}
+		\item
+		means for transforming said ciphertext word signal $C_A$ to one or more ciphertext block word signals $C_A$", each block word signal $C_A$ " being a number representative of a portion of said ciphertext word signal CA in the range $0 \leqq C_{A}" \leqq n_A - 1$,
+		\item
+		means for transforming each of said ciphertext block word signals $C_A$" to a signed ciphertext word signal $C_{As}$ corresponding to a number representative of an encoded form of said ciphertext block word signal $C_A$ ", whereby
+			\begin{gather*}
+				C_{As}  \equiv {C_{A}"}^{dA} (mod \; n_A).
+			\end{gather*}
+	\end{enumerate}
+\item The system of claim 11 further comprising configurations of claim 10.
+
+\item A communications system having a plurality of terminals coupled by a communications channel, including a first terminal characterized by an associated encoding key $E_A =(e_A, n_A)$ and decoding key $D_A =(d_A, n_A)$, and including a second terminal, wherein $n_A$ is a composite number of the form
+		\begin{gather*}
+			n_A = p_A \cdot q_A
+		\end{gather*}	
+	$p_A$ and $q_A$ are prime numbers, \\
+	$e_A$ is relatively prime to $1cm(p_A-1, q_A-1)$, \\
+	$d_A$ is a multiplicative inverse of 
+		\begin{gather*}
+			e_A(mod(1cm(p_A-1, q_A-1))).
+		\end{gather*}	
+wherein said first terminal comprises:
+	\begin{enumerate}
+		\item	
+		encoding means coupled to said channel and adapted for transforming a transmit message word signal $M_A$ to a signed message word signal $M_{As}$ and for transmitting $M_{As}$ on said channel,
+		\item
+where $M_A$ corresponds to a number representative of a message and
+$0 \leqq M_A \leqq n_A-1$
+		\item
+where $M_{As}$ corresponds to a number representative of a signed form of said message and corresponds to
+		\begin{gather*}
+			M_{As} \equiv {M_A}^{dA} (mod \; n_A)
+		\end{gather*}
+wherein said second terminal comprises:
+\begin{enumerate}
+	\item
+	decoding means coupled to said channel and adapted for receiving $M_{As}$ from said channel and for transforming $M_{As}$ to a receive message word signal $M_A$'
+
+\item
+where $M_A$' corresponds to a number representative of an unsigned form of $M_A$ and corresponds to:
+		\begin{gather*}
+			M_{A}' \equiv {M_{As}}^{eA} (mod \; n_A)
+		\end{gather*}
+		\end{enumerate}
+	\end{enumerate}
+	
+\item A system according to claim 13 wherein at least one of said transforming means comprising those in claim 2.
+
+
+
+\end{enumerate}
+
+\section{Vulnerabilities of RSA}\label{Vulnerabilities of RSA}
+The RSA asymmetric scheme is useful when two parties, without knowing each other have to establish a secure communications channel. This is feasible since the public key is known to everyone, and while encryption can be made with such key, the public key is useless for decrypting the hidden information. \\ \\
+Hence, the RSA cryptosystem is useful in web browsers, email, VPNs, as well as any other communication, or its medium, over which it is required to send data securely to servers or parties with which we have no direct contact.
+\begin{enumerate}
+	\item \textbf{VPNs and RSA.}  \\
+	OpenVPN, which is a protocol built into most proprietary VPN desktop and mobile apps, mostly uses the AES encryption algorithm, which has given the US National Security Agency (NSA) a hard time when trying to crack it (evidence of the NSA actually decrypting information exists but is very limited). \\ \\
+\indent Nonetheless, the RSA asymmetric encryption algorithm is used for OpenVPN's handshake process, in which the exchange of symmetric session keys occurs.
+RSA uses keys of lengths of 2048 or 4096 bits, given the fact that they public key is visible to everyone (hence its name), and thus they have to be that long to remain secure, i.e., a 2048 bit key will have $2^{2048}$ possible combinations, approximately $3.23 \cdot 10^{616}$  combinations to test.
+
+	\item \textbf{RSA SecurID.}  \\
+	RSA has developed and currently develops RSA SecurID, a mechanism used to perform two-factor authentication for users to network resources. \\
+The device's authentication mechanism consists of a token that creates a decimal number code every fixed amount of time.
+At an internal level, this is achieved via a built-in clock and the device’s key, which has been factory-encoded and is known as the seed or almost random key. \\ \\
+In this case, the seed’s role resembles that of the private key in the RSA cryptosystem. Although it turns out to be a secret for the user (message sender), it also remains a secret for everyone else, since it is a factory-set seed, and SecurID devices are tamper-resistant, i.e., it can resist intentional malfunction, sabotage, or reverse engineering, which could compromise the device and its seed.
+
+
+
+	
+	
+\end{enumerate}
+
+
+\section{Sources}\label{sources}
+We worked hard, and achieved very little.
+
+\bibliographystyle{abbrv}
+\bibliography{main}
+\end{document}
