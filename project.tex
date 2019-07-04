@@ -44,9 +44,9 @@
 		%	Title
 		%------------------------------------------------
 		
-		\HRule\\[0.4cm]
+		\HRule\\[0.9cm]
 		
-		{\huge\bfseries An Unnecessarily Convoluted Academic Title}\\[0.4cm] % Title of your document
+		{\huge\bfseries RSA}\\[0.4cm] % Title of your document
 		
 		\HRule\\[1.5cm]
 		
@@ -97,27 +97,6 @@
 		
 	\end{titlepage}
 	
-	%----------------------------------------------------------------------------------------
-	
-%\end{document}
-
-% ----------------------------------------------------------------------------------------------
-
-%\title{A Very Simple \LaTeX{} Template}
-%\author{
-%        Roberto Tellez Perezyera \\
-%                Some CS engineering student\\
-%        Tec de Monterrey, Campus Estado de Mexico\\
-%        \underline{Mexico}
-%            \and
-%        And no one eles for now this is my part of the work okay? okay.\\
-%}
-%\date{\today}
-
-%\documentclass[12pt]{article}
-
-%\begin{document}
-%\maketitle
 
 \section{Introduction}
 In the following pages, we shall explore and discuss the foundations, characteristics, and practicalities of the RSA (Rivest-Shamir-Adleman) cryptosystem, one of the first, and to date, a very popular public key cryptosystem, used for secure data transmission. \\ \\
@@ -322,6 +301,53 @@ where $M_A$' corresponds to a number representative of an unsigned form of $M_A$
 	\end{enumerate}
 	
 \item A system according to claim 13 wherein at least one of said transforming means comprising those in claim 2.
+
+\item The system according to claim 13 wherein the second terminal is characterized by associated encoding and decoding keys $E_B=(e_B, n_B)$, $D_B = (d_B, n_B)$, where $n_b$ is a composite number; the product of two prime numbers.\\
+This second terminal comprises encoding means coupled to the communications channel and adapted for transforming and transmitting messages over the channel.\\
+A first terminal comprises decoding means coupled to the channel and adapted for receiving and transforming the message received over the channel.
+
+\item The system according to claim 13 wherein said second terminal has an associated encoding key $E_B = (e_B, n_B)$, and a decoding key $D_B = (d_B, n_B)$, wherein said encoding means of the first terminal is adapted for the transformation of a message into a ciphertext to be transmitted over the channel.
+
+
+\item The system according to claim 15 wherein the encoding means of the first terminal are comprised of the features described in claim 16.
+
+\item A cryptographic communications system having a plurality of terminals linked through a communications channel. This includes the first and second terminals, as well as their encoding keys, all previously specified in previous claims.\\
+The first and second terminals comprise the means specified in claims 15 and 16.
+
+\item A system according to claim 18 with at least one of said transforming means comprising:
+    \begin{enumerate}
+
+    \item a first register means for receiving and storing a first digital signal representative of said signal-to-be-transformed
+    
+    \item a second register means for receiving and storing a second digital signal representative of the exponent of the equivalence relation defining said transformation
+    
+    \item a third register means for receiving and storing a third digital signal representative of the modulus of the equivalency relation defining said transformation, and
+    
+    \item an exponentiation by repeated squaring and multiplication network coupled to said first, second, and third register means, including:
+    
+   	 \begin{enumerate}
+   	 
+   	 \item output register means for receiving and storing a first multiplier signal and applying it to a first input line
+   	 
+   	 \item selector means for successively selecting every bit of the second digital signal as a multiplier selector signal
+   	 
+   	 \item means operative for each of said multiplier selector signals, and
+   	 
+   	 \item modulo multiplier means operative in step with said selector means and responsive to said first and second multiplier signals on said first and second multiplier input lines for generating first multiplier signals for transferring them to said output register means. The first multiplier signal initially representing binary 1, and thereafter being representative of the modulo product of said first and second multiplier signals, where the modulus of said modulo product corresponds to said third digital signal.
+   	 
+   	 \end{enumerate}
+    
+    \end{enumerate}
+
+\item The system according to claim 18 wherein said second terminal characterized by an associated encoding key $E_B = (e_B, n_B)$, and decoding key $D_B = (d_B, n_B)$ wherein such terminal comprises the specification given in claims 15 and 16.
+
+
+\item The system according to claim 18 wherein said second terminal is characterized by an associated encoding key $E_B =(e_B, n_B)$ and decoding key $D_B =(d_B, n_B)$, where we use the same configuration as said claim.
+
+\item The system according to claim 18 wherein said second terminal is characterized by an associated encoding key $E_B =(e_B, n_B)$ and decoding key $D_B =(d_B, n_B)$, where 
+
+\item 
+
 
 
 
