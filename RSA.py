@@ -1,5 +1,16 @@
+# coding: utf-8
+
+'''
+Authors:
+Joaquin Rios Corvera
+Jordan Gonzalez Bustamante
+Roberto Tellez Perezyera
+'''
+
 import os
 import random
+from tkinter import *
+from tkinter import filedialog
 
 # ax + by = g = gcd(a,b)
 def extEuclideanGCD(a,b):
@@ -30,6 +41,7 @@ makes this method cryptographically secure.
 We then use Miller-Rabin to see if the generated number is random, until we find a number
 '''
 def generateKeys():
+    global app, tbutton
     randPrime = int.from_bytes(os.urandom(50), byteorder="little")
     while not is_Prime(randPrime):
         randPrime = int.from_bytes(os.urandom(50), byteorder="little")
@@ -56,16 +68,30 @@ def generateKeys():
     privateKey.write(str(n) + "\n" + str(d))
     privateKey.close()
 
+    rlabel = Label(app, text="Two files were created, one for the Public Key, other for the Private Key", font=("Arial", 14))
+    rlabel.grid(pady=5, row=4, column=1)
+    tbutton.configure(state=NORMAL)
+
+def getFile():
+    global file, ebutton
+    temporal = filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("all files", "*.*")))
+    file = open(temporal, 'r').read()
+
+    label_text = "The message which will be encrypted is: '" + file + "'"
+    rlabel = Label(app, text=label_text, font=("Arial", 14))
+    rlabel.grid(pady=5, row=5, column=1)
+    ebutton.configure(state=NORMAL)
+
 def encrypt():
-    #TODO que publicKey sea el string completeo del txt, pidiendo archivo
+    global app, file, dbutton
+
     publicKeyFile = open("publicKey.txt", "r")
     publicKey = publicKeyFile.read()
     publicKeyFile.close()
 
-    #TODO que agarre un archivo
-    textFile = open("text.txt", "r")
-    text = textFile.read()
-    textFile.close()
+    #textFile = open("text.txt", "r")
+    text = file
+    #textFile.close()
 
     publicKey = publicKey.splitlines()
     n = int(publicKey[0])
@@ -82,9 +108,12 @@ def encrypt():
     encrypted.write(str(cipher))
     encrypted.close()
 
+    rlabel = Label(app, text="A file with the encryption has been created.", font=("Arial", 14))
+    rlabel.grid(pady=5, row=6, column=1)
+    dbutton.configure(state=NORMAL)
 
 def decrypt():
-    #TODO que reciba el archivo con la privateKey
+    global app
     privateKeyFile = open("privateKey.txt", "r")
     privateKey = privateKeyFile.read()
     privateKeyFile.close()
@@ -115,6 +144,9 @@ def decrypt():
     decrypted = open("decrypted.txt", "w+")
     decrypted.write(readable)
     decrypted.close()
+
+    rlabel = Label(app, text="A file with the decryption has been created.", font=("Arial", 14))
+    rlabel.grid(pady=5, row=7, column=1)
 
 #Miller-Rabin algorithm for checking primality taken from Rosetta Code
 def is_Prime(n):
@@ -152,10 +184,44 @@ def is_Prime(n):
         a = random.randrange(2, n)
         if trial_composite(a):
             return False
-
     return True
 
-generateKeys()
-encrypt()
-decrypt()
+def main():
+    global app, file, tbutton, ebutton, dbutton
+    app = Tk()
+    app.title("RSA Multi-purpose system.")
+    # labels
+    mlabel = Label(app, text="This applications offers:", font=("Arial", 14))
+    glabel = Label(app, text="Random key generation.", font=("Arial", 14))
+    tlabel = Label(app, text="Text to encrypt/decrypt.", font=("Arial", 14))
+    elabel = Label(app, text="Encrypt.", font=("Arial", 14))
+    dlabel = Label(app, text="Decrypt.", font=("Arial", 14))
+    # buttons
+    gbutton = Button(app, text="Generate keys", font=("Arial", 12), command=generateKeys)
+    tbutton = Button(app, text="Select text file...", font=("Arial", 12), command=getFile)
+    tbutton.configure(state=DISABLED)
+    ebutton = Button(app, text="Encrypt", font=("Arial", 12), command=encrypt)
+    ebutton.configure(state=DISABLED)
+    dbutton = Button(app, text="Decrypt", font=("Arial", 12), command=decrypt)
+    dbutton.configure(state=DISABLED)
+
+    # grid
+    mlabel.grid(pady=5, row=0, column=1)
+    glabel.grid(pady=5, padx=5, row=1, column=0)
+    tlabel.grid(pady=5, padx=5, row=1, column=1)
+    elabel.grid(pady=5, padx=5, row=1, column=2)
+    dlabel.grid(pady=5, padx=5, row=1, column=3)
+    gbutton.grid(pady=5, row=2, column=0)
+    tbutton.grid(pady=5, row=2, column=1)
+    ebutton.grid(pady=5, row=2, column=2)
+    dbutton.grid(pady=5, row=2, column=3)
+
+    app.mainloop()
+
+
+global app, tbutton, ebutton, dbutton
+main()
+
+
+
 
