@@ -1,3 +1,4 @@
+import os
 import random
 
 # ax + by = g = gcd(a,b)
@@ -22,9 +23,22 @@ def LCM(a,b):
 
 
 #Will save public and private keys to different files
+'''
+We are using os.urandom() to generate a random number because it uses synchronization methods, 
+which means that another process can't receive the same random number at the same time, which
+makes this method cryptographically secure. 
+We then use Miller-Rabin to see if the generated number is random, until we find a number
+'''
 def generateKeys():
-    p = 2074722246773485207821695222107608587480996474721117292752992589912196684750549658310084416732550077
-    q = 6513516734600035718300327211250928237178281758494417357560086828416863929270451437126021949850746381
+    randPrime = int.from_bytes(os.urandom(50), byteorder="little")
+    while not is_Prime(randPrime):
+        randPrime = int.from_bytes(os.urandom(50), byteorder="little")
+    p = randPrime
+
+    randPrime = int.from_bytes(os.urandom(50), byteorder="little")
+    while not is_Prime(randPrime):
+        randPrime = int.from_bytes(os.urandom(50), byteorder="little")
+    q = randPrime
 
     n = p * q
     totient = (p - 1) * (q - 1)
@@ -43,9 +57,10 @@ def generateKeys():
     privateKey.close()
 
 def encrypt():
-    #TODO que publicKey sea el string completeo del txt
-    publicKey = "13513738074006080862264476443977166349086361660577276683539071573295457313514603062249049313215121635233965221964743270358541941492028942548846407860040755759932529457346440118365714783352895909021337\n65537"
-
+    #TODO que publicKey sea el string completeo del txt, pidiendo archivo
+    publicKeyFile = open("publicKey.txt", "r")
+    publicKey = publicKeyFile.read()
+    publicKeyFile.close()
 
     #TODO que agarre un archivo
     textFile = open("text.txt", "r")
@@ -70,10 +85,14 @@ def encrypt():
 
 def decrypt():
     #TODO que reciba el archivo con la privateKey
-    privateKey = "13513738074006080862264476443977166349086361660577276683539071573295457313514603062249049313215121635233965221964743270358541941492028942548846407860040755759932529457346440118365714783352895909021337\n739949174948057145951692535807437957851235314692182391303842994656007271763235318810453842264254756202117713877070988636842550848177921861646327947751806756428161027875149716196849665495737834892713"  #TODO
+    privateKeyFile = open("privateKey.txt", "r")
+    privateKey = privateKeyFile.read()
+    privateKeyFile.close()
 
     #TODO que lea un archivo de texto con la madre encriptada
-    encrypted = "6046571899514177607531732056191113412460325269297337034540382775938248660098500685672707879367252857130041772720107785512322970004515947926122302827174932213841055563980837923859949037887228740105943" #TODO que reciba el texto encrypted
+    encryptedFile = open("encrypted.txt", "r")
+    encrypted = encryptedFile.read()
+    encryptedFile.close()
 
     privateKey = privateKey.splitlines()
     n = int(privateKey[0])
@@ -96,6 +115,45 @@ def decrypt():
     decrypted = open("decrypted.txt", "w+")
     decrypted.write(readable)
     decrypted.close()
+
+#Miller-Rabin algorithm for checking primality taken from Rosetta Code
+def is_Prime(n):
+    """
+    Miller-Rabin primality test.
+
+    A return value of False means n is certainly not prime. A return value of
+    True means n is very likely a prime.
+    """
+    if n != int(n):
+        return False
+    n = int(n)
+    # Miller-Rabin test for prime
+    if n == 0 or n == 1 or n == 4 or n == 6 or n == 8 or n == 9:
+        return False
+
+    if n == 2 or n == 3 or n == 5 or n == 7:
+        return True
+    s = 0
+    d = n - 1
+    while d % 2 == 0:
+        d >>= 1
+        s += 1
+    assert (2 ** s * d == n - 1)
+
+    def trial_composite(a):
+        if pow(a, d, n) == 1:
+            return False
+        for i in range(s):
+            if pow(a, 2 ** i * d, n) == n - 1:
+                return False
+        return True
+
+    for i in range(8):  # number of trials
+        a = random.randrange(2, n)
+        if trial_composite(a):
+            return False
+
+    return True
 
 generateKeys()
 encrypt()
